@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  # postgres:
+  #   container_name: postgres
+  #   image: postgres:latest
+  #   volumes:
+  #     - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  #   ports:
+  #     - 5432:5432
+  #   env_file:
+  #     - .pg_env
+ grafana:
+   container_name: grafana
+   image: grafana/grafana-enterprise
+   volumes:
+     - ./datasource.yaml:/etc/grafana/provisioning/datasources/postgres.yaml
+     - ./dashboard-def.json:/var/lib/grafana/dashboards/dashboard.json
+     - ./dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
+   restart: always
+  #  depends_on:
+  #    - postgres
+   ports:
+     - 3001:3000
+  #  env_file:
+  #    - .gf_env
